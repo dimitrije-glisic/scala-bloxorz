@@ -1,6 +1,20 @@
 import bloxorz.{Bloxorz, Board, BoardMaker, Controller}
 
+import scala.annotation.tailrec
+
 object Application {
+
+  @tailrec
+  def playGame(controller:Controller): Unit = {
+    val move = getMove()
+    if(move == 'q') {
+      println("Bye, bye...:)")
+      return
+    }
+    controller.playMove(move)
+    controller.printGame()
+    playGame(controller)
+  }
 
   def main(args: Array[String]): Unit = {
     println("Hello from Bloxorz Applications")
@@ -10,15 +24,9 @@ object Application {
       new Board(matrix),
       new Bloxorz("UP", getInitPosition(matrix), (-1, -1))
     )
+
     controller.printGame()
-    controller.playMove(getMove())
-    controller.printGame()
-    controller.playMove(getMove())
-    controller.printGame()
-    controller.playMove(getMove())
-    controller.printGame()
-    controller.playMove(getMove())
-    controller.printGame()
+    playGame(controller)
 
   }
 
