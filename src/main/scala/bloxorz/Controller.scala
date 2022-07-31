@@ -27,10 +27,15 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
         this.bloxorz
       }
     } else {
-      val coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
-      val coord_2 = (bloxorz.coord_two._1 - 1, bloxorz.coord_two._2)
+      var coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
+      var coord_2 = (-1, -1)
+      val nextPos = nextPosition(bloxorz, "UP")
+      if (nextPos == "FLAT") {
+        coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
+        coord_2 = (bloxorz.coord_two._1 - 1, bloxorz.coord_two._2)
+      }
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
-        new Bloxorz(newPosition(bloxorz, "UP"), coord_1, coord_2)
+        new Bloxorz(nextPos, coord_1, coord_2)
       } else {
         println("Cannot play that move")
         this.bloxorz
@@ -49,10 +54,15 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
         this.bloxorz
       }
     } else {
-      val coord_1 = (bloxorz.coord_one._1 + 1, bloxorz.coord_one._2)
-      val coord_2 = (bloxorz.coord_two._1 + 1, bloxorz.coord_two._2)
+      var coord_1 = (bloxorz.coord_one._1 + 2, bloxorz.coord_one._2)
+      var coord_2 = (-1, -1)
+      val nextPos = nextPosition(bloxorz, "DOWN")
+      if (nextPos == "FLAT") {
+        coord_1 = (bloxorz.coord_one._1 + 1, bloxorz.coord_one._2)
+        coord_2 = (bloxorz.coord_two._1 + 1, bloxorz.coord_two._2)
+      }
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
-        new Bloxorz(newPosition(bloxorz, "DOWN"), coord_1, coord_2)
+        new Bloxorz(nextPos, coord_1, coord_2)
       } else {
         println("Cannot play that move")
         this.bloxorz
@@ -71,10 +81,15 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
         this.bloxorz
       }
     } else {
-      val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_two._2 + 1)
-      val coord_2 = (bloxorz.coord_two._1, bloxorz.coord_two._2 + 1)
+      var coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 + 2)
+      var coord_2 = (-1, -1)
+      val nextPos = nextPosition(bloxorz, "RIGHT")
+      if (nextPos == "FLAT") {
+        coord_1 = (bloxorz.coord_one._1, bloxorz.coord_two._2 + 1)
+        coord_2 = (bloxorz.coord_two._1, bloxorz.coord_two._2 + 1)
+      }
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
-        new Bloxorz(newPosition(bloxorz, "RIGHT"), coord_1, coord_2)
+        new Bloxorz(nextPos, coord_1, coord_2)
       } else {
         println("Cannot play that move")
         this.bloxorz
@@ -93,9 +108,15 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
         this.bloxorz
       }
     } else {
-      val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
-      if (fieldOK(coord_1)) {
-        new Bloxorz(newPosition(bloxorz, "LEFT"), coord_1, (-1, -1))
+      var coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
+      var coord_2 = (-1, -1)
+      val nextPos = nextPosition(bloxorz, "LEFT")
+      if (nextPos == "FLAT") {
+        coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
+        coord_2 = (bloxorz.coord_two._1, bloxorz.coord_two._2 - 1)
+      }
+      if (fieldOK(coord_1) && fieldOK(coord_2)) {
+        new Bloxorz(nextPos, coord_1, coord_2)
       } else {
         println("Cannot play that move")
         this.bloxorz
@@ -104,6 +125,8 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
   }
 
   def fieldOK(coord: (Int, Int)): Boolean = {
+    if (coord._1 == -1 || coord._2 == -1) return true
+
     val fieldValue = board.matrix.take(coord._1 + 1).last(coord._2)
     if (fieldValue == 'o' || fieldValue == 'S') {
       return true
@@ -132,7 +155,7 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
     bloxorz.coord_one._1 == bloxorz.coord_two._1
   }
 
-  def newPosition(bloxorz: Bloxorz, direction: String): String = {
+  def nextPosition(bloxorz: Bloxorz, direction: String): String = {
     if (horizontal(bloxorz)) {
       if (direction == "LEFT" || direction == "RIGHT") {
         "UP"
