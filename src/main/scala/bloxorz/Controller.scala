@@ -1,7 +1,6 @@
 package bloxorz
 
 class Controller(val board: Board, var bloxorz: Bloxorz) {
-
   def playMove(move: Char): Unit = {
     if (move == 'u') {
       this.bloxorz = moveUp()
@@ -16,22 +15,21 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
       val coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
       val coord_2 = (bloxorz.coord_one._1 - 2, bloxorz.coord_one._2)
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
-        return new Bloxorz("FLAT", this.bloxorz.coord_one, coord_2)
+        new Bloxorz("FLAT", this.bloxorz.coord_one, coord_2)
       } else {
         println("Cannot play that move")
-        return this.bloxorz
+        this.bloxorz
       }
     } else {
       val coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
       val coord_2 = (bloxorz.coord_two._1 - 1, bloxorz.coord_two._2)
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
-        return new Bloxorz(position = "FLAT", coord_1, coord_2)
+        new Bloxorz(position = "FLAT", coord_1, coord_2)
       } else {
         println("Cannot play that move")
-        return this.bloxorz
+        this.bloxorz
       }
     }
-    this.bloxorz
   }
 
   def moveRight(): Bloxorz = {
@@ -39,21 +37,20 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
       val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 + 1)
       val coord_2 = (bloxorz.coord_one._1, bloxorz.coord_one._1 + 2)
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
-        return new Bloxorz("FLAT", coord_1, coord_2)
+        new Bloxorz("FLAT", coord_1, coord_2)
       } else {
         println("Cannot play that move")
-        return this.bloxorz
+        this.bloxorz
       }
     } else {
       val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_two._2 + 1)
       if (fieldOK(coord_1)) {
-        return new Bloxorz(position = "UP", coord_1, (-1, -1))
+        new Bloxorz(position = "UP", coord_1, (-1, -1))
       } else {
         println("Cannot play that move")
-        return this.bloxorz
+        this.bloxorz
       }
     }
-    this.bloxorz
   }
 
   def fieldOK(coord_2: (Int, Int)): Boolean = {
