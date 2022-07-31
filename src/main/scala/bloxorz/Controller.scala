@@ -8,6 +8,9 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
     if (move == 'r') {
       this.bloxorz = moveRight()
     }
+    if (move == 'l') {
+      this.bloxorz = moveLeft()
+    }
   }
 
   def moveUp(): Bloxorz = {
@@ -53,8 +56,30 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
     }
   }
 
-  def fieldOK(coord_2: (Int, Int)): Boolean = {
-    if (board.matrix.take(coord_2._1 + 1).last(coord_2._2) == 'o') {
+  def moveLeft(): Bloxorz = {
+    if (bloxorz.position == "UP") {
+      val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 2)
+      val coord_2 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
+      if (fieldOK(coord_1) && fieldOK(coord_2)) {
+        new Bloxorz("FLAT", coord_1, coord_2)
+      } else {
+        println("Cannot play that move")
+        this.bloxorz
+      }
+    } else {
+      val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
+      if (fieldOK(coord_1)) {
+        new Bloxorz(position = "UP", coord_1, (-1, -1))
+      } else {
+        println("Cannot play that move")
+        this.bloxorz
+      }
+    }
+  }
+
+  def fieldOK(coord: (Int, Int)): Boolean = {
+    val fieldValue = board.matrix.take(coord._1+ 1).last(coord._2)
+    if (fieldValue == 'o' || fieldValue == 'S') {
       return true
     }
     false

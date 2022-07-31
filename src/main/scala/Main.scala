@@ -15,6 +15,10 @@ object Application {
     controller.printGame()
     controller.playMove(getMove())
     controller.printGame()
+    controller.playMove(getMove())
+    controller.printGame()
+    controller.playMove(getMove())
+    controller.printGame()
 
   }
 
