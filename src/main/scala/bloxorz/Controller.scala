@@ -73,7 +73,7 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
   def moveRight(): Bloxorz = {
     if (bloxorz.position == "UP") {
       val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 + 1)
-      val coord_2 = (bloxorz.coord_one._1, bloxorz.coord_one._1 + 2)
+      val coord_2 = (bloxorz.coord_one._1, bloxorz.coord_one._2 + 2)
       if (fieldOK(coord_1) && fieldOK(coord_2)) {
         new Bloxorz("FLAT", coord_1, coord_2)
       } else {
