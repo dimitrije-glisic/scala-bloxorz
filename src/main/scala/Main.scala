@@ -25,13 +25,17 @@ object Application {
     println("Hello from Bloxorz Applications")
     val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap.txt")
 
-    val controller: Controller = new Controller(
-      new Board(matrix),
-      new Bloxorz(BLOXORZ_UP, getInitPosition(matrix), (-1, -1))
-    )
+    do {
+      val controller: Controller = new Controller(
+        new Board(matrix),
+        new Bloxorz(BLOXORZ_UP, getInitPosition(matrix), (-1, -1))
+      )
+      controller.printGame()
+      playGame(controller)
+      print("Play again? (y/n):")
+    } while (scala.io.StdIn.readChar() == 'y')
 
-    controller.printGame()
-    playGame(controller)
+    println("Bye, bye...:)")
 
   }
 
