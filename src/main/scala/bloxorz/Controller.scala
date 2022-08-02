@@ -22,8 +22,8 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
 
   def moveUp(): Bloxorz = {
     if (bloxorz.position == BLOXORZ_UP) {
-      val coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
-      val coord_2 = (bloxorz.coord_one._1 - 2, bloxorz.coord_one._2)
+      val coord_1 = (bloxorz.coord_one._1 - 2, bloxorz.coord_one._2)
+      val coord_2 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
       new Bloxorz(BLOXORZ_FLAT, coord_1, coord_2)
     } else {
       var coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
