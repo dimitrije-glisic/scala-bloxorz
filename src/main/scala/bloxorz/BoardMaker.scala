@@ -1,12 +1,18 @@
 package bloxorz
 
 import scala.io.Source
+import scala.util.{Success, Try, Using}
 
 object BoardMaker {
 
   def createBoard(fileName: String): List[Array[Char]] = {
-    Source.fromFile(fileName).getLines.toList map (_.toCharArray)
+    readLinesFromTextFile(fileName) match {
+      case Success(lines) => lines map (_.toCharArray)
+    }
   }
 
 
+  def readLinesFromTextFile(filename: String): Try[List[String]] = {
+    Using(Source.fromFile(filename)) { reader => reader.getLines().toList }
+  }
 }
