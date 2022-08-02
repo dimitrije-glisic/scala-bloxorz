@@ -153,7 +153,7 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
 }
 
 object Controller {
-  val DASH = '–'
+  val DASH = '-'
   val OK_VALUE = 'o'
   val DOT = '.'
   val START = 'S'
