@@ -1,3 +1,4 @@
+import bloxorz.Controller.{BLOXORZ_UP, GAME_STATUS_LOSS, GAME_STATUS_WIN}
 import bloxorz.{Bloxorz, Board, BoardMaker, Controller}
 
 import scala.annotation.tailrec
@@ -11,7 +12,11 @@ object Application {
       println("Bye, bye...:)")
       return
     }
-    controller.playMove(move)
+    val(status, message) = controller.playMove(move)
+    if(status == GAME_STATUS_WIN || status == GAME_STATUS_LOSS){
+      println(s"End of game ($status): $message")
+      return
+    }
     controller.printGame()
     playGame(controller)
   }
@@ -22,7 +27,7 @@ object Application {
 
     val controller: Controller = new Controller(
       new Board(matrix),
-      new Bloxorz("UP", getInitPosition(matrix), (-1, -1))
+      new Bloxorz(BLOXORZ_UP, getInitPosition(matrix), (-1, -1))
     )
 
     controller.printGame()
