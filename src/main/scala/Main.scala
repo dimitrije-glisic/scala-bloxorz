@@ -1,4 +1,4 @@
-import bloxorz.Controller.{BLOXORZ_UP, GAME_STATUS_LOSS, GAME_STATUS_WIN}
+import bloxorz.Constants._
 import bloxorz.{Bloxorz, Board, BoardMaker, Controller}
 
 import scala.annotation.tailrec

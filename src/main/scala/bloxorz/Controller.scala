@@ -1,12 +1,12 @@
 package bloxorz
 
-import bloxorz.Controller._
+import bloxorz.Constants._
 
 class Controller(val board: Board, var bloxorz: Bloxorz) {
 
   def playMove(move: Char): (String, String) = {
     if (move == COMMAND_UP) {
-      this.bloxorz = moveUp()
+      this.bloxorz = RollUpCommand.execute(bloxorz)
     }
     if (move == COMMAND_DOWN) {
       this.bloxorz = moveDown()
@@ -18,23 +18,6 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
       this.bloxorz = moveLeft()
     }
     gameStatus()
-  }
-
-  def moveUp(): Bloxorz = {
-    if (bloxorz.position == BLOXORZ_UP) {
-      val coord_1 = (bloxorz.coord_one._1 - 2, bloxorz.coord_one._2)
-      val coord_2 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
-      new Bloxorz(BLOXORZ_FLAT, coord_1, coord_2)
-    } else {
-      var coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
-      var coord_2 = (-1, -1)
-      val nextPos = nextPosition(bloxorz, COMMAND_UP)
-      if (nextPos == BLOXORZ_FLAT) {
-        coord_1 = (bloxorz.coord_one._1 - 1, bloxorz.coord_one._2)
-        coord_2 = (bloxorz.coord_two._1 - 1, bloxorz.coord_two._2)
-      }
-      new Bloxorz(nextPos, coord_1, coord_2)
-    }
   }
 
   def moveDown(): Bloxorz = {
@@ -152,23 +135,3 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
 
 }
 
-object Controller {
-  val DASH = '-'
-  val OK_VALUE = 'o'
-  val DOT = '.'
-  val START = 'S'
-  val TERMINATION = 'T'
-  val BLOXORZ_MARKER = '#'
-
-  val BLOXORZ_FLAT = "FLAT"
-  val BLOXORZ_UP = "UP"
-
-  val GAME_STATUS_IN_PROGRESS = "IN_PROGRESS"
-  val GAME_STATUS_LOSS = "LOSS"
-  val GAME_STATUS_WIN = "WIN"
-
-  val COMMAND_UP = 'u'
-  val COMMAND_DOWN = 'd'
-  val COMMAND_RIGHT = 'r'
-  val COMMAND_LEFT = 'l'
-}
