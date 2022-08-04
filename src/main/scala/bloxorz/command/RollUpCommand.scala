@@ -1,7 +1,8 @@
-package bloxorz
+package bloxorz.command
 
-import bloxorz.CommandUtil.isHorizontal
-import bloxorz.Constants._
+import bloxorz.Bloxorz
+import bloxorz.Constants.{BLOXORZ_FLAT, BLOXORZ_UP}
+import bloxorz.command.CommandUtil.isHorizontal
 
 object RollUpCommand extends Command {
 

@@ -1,6 +1,7 @@
 package bloxorz
 
 import bloxorz.Constants._
+import bloxorz.command.{RollDownCommand, RollLeftCommand, RollRightCommand, RollUpCommand}
 
 class Controller(val board: Board, var bloxorz: Bloxorz) {
 

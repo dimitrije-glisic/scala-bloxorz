@@ -1,7 +1,8 @@
-package bloxorz
+package bloxorz.command
 
-import bloxorz.CommandUtil.isHorizontal
-import bloxorz.Constants.{BLOXORZ_FLAT, BLOXORZ_UP, COMMAND_DOWN}
+import bloxorz.Bloxorz
+import bloxorz.Constants.{BLOXORZ_FLAT, BLOXORZ_UP}
+import bloxorz.command.CommandUtil.isHorizontal
 
 object RollDownCommand extends Command {
   override def execute(bloxorz: Bloxorz): Bloxorz = {
