@@ -1,11 +1,17 @@
 package bloxorz
 
 import bloxorz.Constants._
+import bloxorz.GameStatus.{GAME_STATUS_IN_PROGRESS, GAME_STATUS_IN_PROGRESS_MESSAGE, GAME_STATUS_LOSS, GAME_STATUS_LOSS_MESSAGE_DOT_FIELD, GAME_STATUS_LOSS_MESSAGE_OUT, GAME_STATUS_WIN, GAME_STATUS_WIN_MESSAGE}
 import bloxorz.command.{RollDownCommand, RollLeftCommand, RollRightCommand, RollUpCommand}
 
 class Controller(val board: Board, var bloxorz: Bloxorz) {
 
-  def playMove(move: Char): (String, String) = {
+  var gameStatus: GameStatus = new GameStatus(GAME_STATUS_IN_PROGRESS, GAME_STATUS_IN_PROGRESS_MESSAGE)
+
+  def playMove(move: Char): Unit = {
+    if (gameStatus.status != GAME_STATUS_IN_PROGRESS)
+      throw new IllegalStateException(s"You cannot play the move - Illegal Game State: ${gameStatus.status} / ${gameStatus.message}")
+
     if (move == COMMAND_UP) {
       this.bloxorz = RollUpCommand.execute(bloxorz)
     }
@@ -18,32 +24,33 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
     if (move == COMMAND_LEFT) {
       this.bloxorz = RollLeftCommand.execute(bloxorz)
     }
-    gameStatus()
+
+    this.gameStatus = updateGameStatus()
   }
 
-  def gameStatus(): (String, String) = {
+  def updateGameStatus(): GameStatus = {
     val fieldOne = board.matrix.take(bloxorz.coord_one._1 + 1).last(bloxorz.coord_one._2)
     val fieldTwo = if (bloxorz.coord_two._1 != -1) board.matrix.take(bloxorz.coord_two._1 + 1).last(bloxorz.coord_two._2) else OK_VALUE
 
     var status = GAME_STATUS_IN_PROGRESS
-    var message = "OK"
+    var message = GAME_STATUS_IN_PROGRESS_MESSAGE
 
     if (fieldOne == DASH || fieldTwo == DASH) {
       status = GAME_STATUS_LOSS
-      message = "Bloxorz is out of board"
+      message = GAME_STATUS_LOSS_MESSAGE_OUT
     }
 
     if (bloxorz.position == BLOXORZ_UP && fieldOne == DOT) {
       status = GAME_STATUS_LOSS
-      message = "Bloxorz placed on '.' field"
+      message = GAME_STATUS_LOSS_MESSAGE_DOT_FIELD
     }
 
     if (bloxorz.position == BLOXORZ_UP && fieldOne == TERMINATION) {
       status = GAME_STATUS_WIN
-      message = "You won!!! :)"
+      message = GAME_STATUS_WIN_MESSAGE
     }
 
-    (status, message)
+    new GameStatus(status, message)
   }
 
   def printGame(): Unit = {

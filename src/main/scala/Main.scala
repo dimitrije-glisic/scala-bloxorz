@@ -1,4 +1,5 @@
 import bloxorz.Constants._
+import bloxorz.GameStatus.{GAME_STATUS_LOSS, GAME_STATUS_WIN}
 import bloxorz.{Bloxorz, Board, BoardMaker, Controller}
 
 import scala.annotation.tailrec
@@ -12,7 +13,8 @@ object Application {
       println("Bye, bye...:)")
       return
     }
-    val(status, message) = controller.playMove(move)
+    controller.playMove(move)
+    val (status, message) = (controller.gameStatus.status, controller.gameStatus.message)
     if(status == GAME_STATUS_WIN || status == GAME_STATUS_LOSS){
       println(s"End of game ($status): $message")
       return
