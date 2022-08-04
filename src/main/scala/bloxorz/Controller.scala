@@ -15,47 +15,9 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
       this.bloxorz = RollRightCommand.execute(bloxorz)
     }
     if (move == COMMAND_LEFT) {
-      this.bloxorz = moveLeft()
+      this.bloxorz = RollLeftCommand.execute(bloxorz)
     }
     gameStatus()
-  }
-
-  def moveLeft(): Bloxorz = {
-    if (bloxorz.position == BLOXORZ_UP) {
-      val coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 2)
-      val coord_2 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
-      new Bloxorz(BLOXORZ_FLAT, coord_1, coord_2)
-
-    } else {
-      var coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
-      var coord_2 = (-1, -1)
-      val nextPos = nextPosition(bloxorz, COMMAND_LEFT)
-      if (nextPos == BLOXORZ_FLAT) {
-        coord_1 = (bloxorz.coord_one._1, bloxorz.coord_one._2 - 1)
-        coord_2 = (bloxorz.coord_two._1, bloxorz.coord_two._2 - 1)
-      }
-      new Bloxorz(nextPos, coord_1, coord_2)
-    }
-  }
-
-  def nextPosition(bloxorz: Bloxorz, command: Char): String = {
-    if (horizontal(bloxorz)) {
-      if (command == COMMAND_LEFT || command == COMMAND_RIGHT) {
-        BLOXORZ_UP
-      } else {
-        BLOXORZ_FLAT
-      }
-    } else {
-      if (command == COMMAND_UP || command == COMMAND_DOWN) {
-        BLOXORZ_UP
-      } else {
-        BLOXORZ_FLAT
-      }
-    }
-  }
-
-  def horizontal(bloxorz: Bloxorz): Boolean = {
-    bloxorz.coord_one._1 == bloxorz.coord_two._1
   }
 
   def gameStatus(): (String, String) = {
