@@ -9,7 +9,7 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
       this.bloxorz = RollUpCommand.execute(bloxorz)
     }
     if (move == COMMAND_DOWN) {
-      this.bloxorz = moveDown()
+      this.bloxorz = RollDownCommand.execute(bloxorz)
     }
     if (move == COMMAND_RIGHT) {
       this.bloxorz = moveRight()
@@ -18,23 +18,6 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
       this.bloxorz = moveLeft()
     }
     gameStatus()
-  }
-
-  def moveDown(): Bloxorz = {
-    if (bloxorz.position == BLOXORZ_UP) {
-      val coord_1 = (bloxorz.coord_one._1 + 1, bloxorz.coord_one._2)
-      val coord_2 = (bloxorz.coord_one._1 + 2, bloxorz.coord_one._2)
-      new Bloxorz(BLOXORZ_FLAT, coord_1, coord_2)
-    } else {
-      var coord_1 = (bloxorz.coord_one._1 + 2, bloxorz.coord_one._2)
-      var coord_2 = (-1, -1)
-      val nextPos = nextPosition(bloxorz, COMMAND_DOWN)
-      if (nextPos == BLOXORZ_FLAT) {
-        coord_1 = (bloxorz.coord_one._1 + 1, bloxorz.coord_one._2)
-        coord_2 = (bloxorz.coord_two._1 + 1, bloxorz.coord_two._2)
-      }
-      new Bloxorz(nextPos, coord_1, coord_2)
-    }
   }
 
   def moveRight(): Bloxorz = {
