@@ -3,5 +3,6 @@ ThisBuild / organization := "com.etf.dglisic"
 
 lazy val bloxorz = (project in file("."))
   .settings(
-    name := "BloxorzScala"
+    name := "BloxorzScala",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.13" % "test"
   )
