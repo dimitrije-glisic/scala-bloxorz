@@ -58,12 +58,12 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
   }
 
   def printWithBloxorz(t: (Array[Char], Int)): Unit = {
-    val (row, index) = t
-    val _row: Array[Char] = Array.copyOf(row, row.length)
-    if (index == bloxorz.coord_one._1) {
+    val (line, row) = t
+    val _row: Array[Char] = Array.copyOf(line, line.length)
+    if (row == bloxorz.coord_one._1) {
       _row.update(bloxorz.coord_one._2, BLOXORZ_MARKER)
     }
-    if (index == bloxorz.coord_two._1) {
+    if (row == bloxorz.coord_two._1) {
       _row.update(bloxorz.coord_two._2, BLOXORZ_MARKER)
     }
     println(_row.mkString)

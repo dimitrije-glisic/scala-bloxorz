@@ -1,6 +1,6 @@
 import bloxorz.Constants._
 import bloxorz.GameStatus.{GAME_STATUS_LOSS, GAME_STATUS_WIN}
-import bloxorz.{Bloxorz, Board, BoardMaker, Controller}
+import bloxorz.{Bloxorz, Board, BoardMaker, Controller, MapEditor}
 
 import scala.annotation.tailrec
 
@@ -23,7 +23,7 @@ object Application {
     playGame(controller)
   }
 
-  def main(args: Array[String]): Unit = {
+  def main2(args: Array[String]): Unit = {
     println("Hello from Bloxorz Applications")
     val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap.txt")
 
@@ -51,5 +51,40 @@ object Application {
     print("Choose command: 'd', 'u', 'l', 'r':")
     scala.io.StdIn.readChar()
   }
+
+
+
+
+
+  def main(args: Array[String]): Unit = {
+    println("Hello from Bloxorz Applications")
+    val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap.txt")
+
+    do {
+      val mapEditor: MapEditor = new MapEditor(
+        new Board(matrix)
+      )
+      mapEditor.printGame()
+      editMap(mapEditor)
+      print("Play again? (y/n):")
+    } while (scala.io.StdIn.readChar() == 'y')
+
+    println("Bye, bye...:)")
+
+  }
+
+  @tailrec
+  def editMap(mapEditor: MapEditor): Unit = {
+    val move = getMove()
+    if(move == 'q') {
+      println("Bye, bye...:)")
+      return
+    }
+    mapEditor.runCommand(move)
+    mapEditor.printGame()
+    editMap(mapEditor)
+  }
+
+
 
 }
