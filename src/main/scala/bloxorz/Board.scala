@@ -7,7 +7,7 @@ class Board(var matrix: List[Array[Char]]) {
   }
 
   val matrix_n:Int = {
-    matrix.take(1).length
+    matrix.take(1).last.length
   }
 
   def getFieldValue(cursor: Cursor):Char = {

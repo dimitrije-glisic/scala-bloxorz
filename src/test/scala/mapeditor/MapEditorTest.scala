@@ -12,21 +12,23 @@ class MapEditorTest extends AnyFunSpec {
   val mapEditor = new MapEditor(board)
 
   describe("Removing Regular field") {
-    it("Should NOT remove OK field which is not on the edge") {
+    it("Should NOT remove Regular field which is NOT on the edge") {
       val cursor = new Cursor(2, 3)
       val before = mapEditor.board.getFieldValue(cursor)
-      mapEditor.removeOKField(cursor)
+      mapEditor.removeRegularField(cursor)
       assert(mapEditor.board.getFieldValue(cursor) == before)
     }
   }
 
-  describe("Replacing current field, which is not appropriate/on-the-edge, with a Regular one") {
-    it("Should NOT replace current field with a Regular one") {
-      val cursor = new Cursor(1, 7)
-      val before = mapEditor.board.getFieldValue(cursor)
-      assert(before == DASH)
-      mapEditor.replaceCurrentFieldWithRegularField(cursor)
-      assert(mapEditor.board.getFieldValue(cursor) == before)
+  describe("Adding Regular field") {
+    describe("Current field is not appropriate/on-the-edge") {
+      it("Should NOT replace current field with a Regular one") {
+        val cursor = new Cursor(1, 7)
+        val before = mapEditor.board.getFieldValue(cursor)
+        assert(before == DASH)
+        mapEditor.addRegularField(cursor)
+        assert(mapEditor.board.getFieldValue(cursor) == before)
+      }
     }
   }
 
