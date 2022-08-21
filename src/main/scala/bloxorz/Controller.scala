@@ -24,13 +24,16 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
     if (move == COMMAND_LEFT) {
       this.bloxorz = RollLeftCommand.execute(bloxorz)
     }
+    if(move == 'q'){
+      //do nothing
+    }
 
     this.gameStatus = updateGameStatus()
   }
 
   def updateGameStatus(): GameStatus = {
     val fieldOne = board.matrix.take(bloxorz.coord_one._1 + 1).last(bloxorz.coord_one._2)
-    val fieldTwo = if (bloxorz.coord_two._1 != -1) board.matrix.take(bloxorz.coord_two._1 + 1).last(bloxorz.coord_two._2) else OK_VALUE
+    val fieldTwo = if (bloxorz.coord_two._1 != -1) board.matrix.take(bloxorz.coord_two._1 + 1).last(bloxorz.coord_two._2) else REGULAR_VALUE
 
     var status = GAME_STATUS_IN_PROGRESS
     var message = GAME_STATUS_IN_PROGRESS_MESSAGE
@@ -54,16 +57,18 @@ class Controller(val board: Board, var bloxorz: Bloxorz) {
   }
 
   def printGame(): Unit = {
+    println("\n")
     board.matrix.zipWithIndex.foreach(t => printWithBloxorz(t))
+    println("\n")
   }
 
   def printWithBloxorz(t: (Array[Char], Int)): Unit = {
-    val (row, index) = t
-    val _row: Array[Char] = Array.copyOf(row, row.length)
-    if (index == bloxorz.coord_one._1) {
+    val (line, row) = t
+    val _row: Array[Char] = Array.copyOf(line, line.length)
+    if (row == bloxorz.coord_one._1) {
       _row.update(bloxorz.coord_one._2, BLOXORZ_MARKER)
     }
-    if (index == bloxorz.coord_two._1) {
+    if (row == bloxorz.coord_two._1) {
       _row.update(bloxorz.coord_two._2, BLOXORZ_MARKER)
     }
     println(_row.mkString)

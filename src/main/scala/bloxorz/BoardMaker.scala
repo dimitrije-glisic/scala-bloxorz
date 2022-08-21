@@ -5,9 +5,9 @@ import scala.util.{Success, Try, Using}
 
 object BoardMaker {
 
-  def createBoard(fileName: String): List[Array[Char]] = {
+  def createMapMatrix(fileName: String): List[Array[Char]] = {
     readLinesFromTextFile(fileName) match {
-      case Success(lines) => lines map (_.toCharArray)
+      case Success(lines) => lines filter (_.nonEmpty) map (_.toCharArray)
     }
   }
 
