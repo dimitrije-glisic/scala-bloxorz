@@ -14,7 +14,7 @@ object GameControllerRunner {
 
   @tailrec
   def run(): Unit = {
-    val matrix = BoardMaker.createMapMatrix("src/main/resources/bloxorzmap")
+    val matrix = BoardMaker.createMapMatrix("src/main/resources/maps/map")
     val controller: GameController = new GameController(new Board(matrix), new Bloxorz(BLOXORZ_UP, Board.getInitPosition(matrix), (-1, -1)))
     controller.printGame()
     playGame(controller)

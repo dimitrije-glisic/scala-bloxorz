@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 object MapEditorRunner {
 
   def run(): Unit = {
-    val matrix = BoardMaker.createMapMatrix("src/main/resources/bloxorzmap")
+    val matrix = BoardMaker.createMapMatrix("src/main/resources/maps/map")
     editMap(new MapEditor(new Board(matrix)))
   }
 
