@@ -4,6 +4,7 @@ import bloxorz.common.Constants.BLOXORZ_UP
 import bloxorz.common.UserInputUtil.getMove
 import bloxorz.gamecontrol.{Bloxorz, GameController}
 import bloxorz.common.{Board, BoardMaker}
+import bloxorz.gamecontrol.GameStatus.{GAME_STATUS_LOSS, GAME_STATUS_WIN}
 
 import scala.annotation.tailrec
 

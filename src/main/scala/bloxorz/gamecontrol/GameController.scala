@@ -1,7 +1,7 @@
 package bloxorz.gamecontrol
 
 import bloxorz.common.Constants._
-import bloxorz.GameStatus._
+import bloxorz.gamecontrol.GameStatus._
 import bloxorz.common.Board
 import bloxorz.gamecontrol.command.{RollDownCommand, RollLeftCommand, RollRightCommand, RollUpCommand}
 
