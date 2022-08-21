@@ -7,7 +7,7 @@ object BoardMaker {
 
   def createBoard(fileName: String): List[Array[Char]] = {
     readLinesFromTextFile(fileName) match {
-      case Success(lines) => lines map (_.toCharArray)
+      case Success(lines) => lines filter (_.nonEmpty) map (_.toCharArray)
     }
   }
 

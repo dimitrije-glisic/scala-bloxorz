@@ -25,7 +25,7 @@ object Application {
 
   def main2(args: Array[String]): Unit = {
     println("Hello from Bloxorz Applications")
-    val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap.txt")
+    val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap")
 
     do {
       val controller: Controller = new Controller(
@@ -58,7 +58,7 @@ object Application {
 
   def main(args: Array[String]): Unit = {
     println("Hello from Bloxorz Applications")
-    val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap.txt")
+    val matrix = BoardMaker.createBoard("src/main/resources/bloxorzmap")
 
     do {
       val mapEditor: MapEditor = new MapEditor(

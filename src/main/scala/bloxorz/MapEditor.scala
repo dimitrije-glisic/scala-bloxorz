@@ -2,8 +2,10 @@ package bloxorz
 
 import bloxorz.Constants.{DASH, REGULAR_VALUE}
 
-class MapEditor(val board: Board) {
+import java.io.{File, FileWriter}
 
+class MapEditor(val board: Board) {
+  val MAPS_LOCATION = "src/main/resources/generated"
   var cursor: Cursor = new Cursor(0, 0)
 
   def runCommand(command: Char): Unit = {
@@ -30,6 +32,14 @@ class MapEditor(val board: Board) {
 
     if (command == '+') {
       addRegularField(cursor)
+    }
+
+    if (command == 's') {
+      print("Do you want to finish editing and save the new map? (y/n): ")
+      if (scala.io.StdIn.readChar() == 'y') {
+        print("Enter the name for the new Map: ")
+        writeToFile(this.board, scala.io.StdIn.readLine())
+      }
     }
   }
 
@@ -71,6 +81,17 @@ class MapEditor(val board: Board) {
         println(s"$REGULAR_VALUE not Added")
       }
     }
+  }
+
+  def writeToFile(board: Board, fileName: String): File = {
+    val file = new File(MAPS_LOCATION + fileName)
+    val fileWriter = new FileWriter(file)
+    for (t <- board.matrix.zipWithIndex) {
+      val (row: Array[Char], index: Int) = (t._1, t._2)
+      fileWriter.write(if (index < board.matrix_m - 1) row.appended('\n') else row)
+    }
+    fileWriter.close()
+    file
   }
 
   def canBeReplacedWithDash(cursor: Cursor): Boolean = {

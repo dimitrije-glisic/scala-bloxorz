@@ -3,7 +3,7 @@ import bloxorz.{Board, BoardMaker}
 import org.scalatest.funspec.AnyFunSpec
 
 class BoardTest extends AnyFunSpec {
-  val matrix: List[Array[Char]] = BoardMaker.createBoard("src/test/resources/bloxorzmap.txt")
+  val matrix: List[Array[Char]] = BoardMaker.createBoard("src/test/resources/bloxorzmap")
   val board: Board = new Board(matrix)
 
   describe("When Board is properly created") {
