@@ -7,7 +7,7 @@ import org.scalatest.funspec.AnyFunSpec
 
 class MapEditorTest extends AnyFunSpec {
 
-  val matrix: List[Array[Char]] = BoardMaker.createBoard("src/test/resources/bloxorzmap")
+  val matrix: List[Array[Char]] = BoardMaker.createMapMatrix("src/test/resources/bloxorzmap")
   val board = new Board(matrix)
   val mapEditor = new MapEditor(board)
 
