@@ -2,7 +2,7 @@ package bloxorz
 
 case object Constants{
   val DASH = '-'
-  val OK_VALUE = 'o'
+  val REGULAR_VALUE = 'o'
   val DOT = '.'
   val START = 'S'
   val TERMINATION = 'T'
