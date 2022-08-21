@@ -1,6 +1,6 @@
-package bloxorz
+package bloxorz.common
 
-case object Constants{
+case object Constants {
   val DASH = '-'
   val REGULAR_VALUE = 'o'
   val DOT = '.'

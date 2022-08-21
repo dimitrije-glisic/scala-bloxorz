@@ -1,8 +1,8 @@
-package bloxorz.command
+package bloxorz.gamecontrol.command
 
-import bloxorz.Bloxorz
-import bloxorz.Constants.{BLOXORZ_FLAT, BLOXORZ_UP}
-import bloxorz.command.CommandUtil.isHorizontal
+import bloxorz.common.Constants.{BLOXORZ_FLAT, BLOXORZ_UP}
+import CommandUtil.isHorizontal
+import bloxorz.gamecontrol.Bloxorz
 
 object RollRightCommand extends Command {
   override def execute(bloxorz: Bloxorz): Bloxorz = {

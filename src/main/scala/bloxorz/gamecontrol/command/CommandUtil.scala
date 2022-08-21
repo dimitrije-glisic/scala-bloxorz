@@ -1,6 +1,6 @@
-package bloxorz.command
+package bloxorz.gamecontrol.command
 
-import bloxorz.Bloxorz
+import bloxorz.gamecontrol.Bloxorz
 
 case object CommandUtil {
 

@@ -1,4 +1,4 @@
-import bloxorz.GeneralRunner
+import bloxorz.runner.GeneralRunner
 
 
 object Application {

@@ -1,6 +1,7 @@
-package bloxorz
+package bloxorz.mapeditor
 
-import bloxorz.Constants.{DASH, REGULAR_VALUE}
+import bloxorz.common.Constants.{DASH, REGULAR_VALUE}
+import bloxorz.common.{Board, Constants}
 
 import java.io.{File, FileWriter}
 

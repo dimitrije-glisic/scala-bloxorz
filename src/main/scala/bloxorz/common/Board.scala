@@ -1,6 +1,7 @@
-package bloxorz
+package bloxorz.common
 
-import bloxorz.Constants.{START}
+import bloxorz.common.Constants.START
+import bloxorz.mapeditor.Cursor
 
 object Board{
   def apply(matrix: List[Array[Char]]): Board = {

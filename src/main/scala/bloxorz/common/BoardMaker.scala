@@ -1,4 +1,4 @@
-package bloxorz
+package bloxorz.common
 
 import scala.io.Source
 import scala.util.{Success, Try, Using}

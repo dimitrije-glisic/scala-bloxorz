@@ -1,5 +1,5 @@
-import bloxorz.Constants.{START, TERMINATION}
-import bloxorz.{Board, BoardMaker}
+import bloxorz.common.Constants.{START, TERMINATION}
+import bloxorz.common.{Board, BoardMaker}
 import org.scalatest.funspec.AnyFunSpec
 
 class BoardTest extends AnyFunSpec {

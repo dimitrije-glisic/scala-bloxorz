@@ -1,4 +1,4 @@
-package bloxorz
+package bloxorz.gamecontrol
 
 object GameStatus {
   val GAME_STATUS_IN_PROGRESS = "IN_PROGRESS"

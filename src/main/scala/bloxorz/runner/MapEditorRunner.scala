@@ -1,6 +1,8 @@
-package bloxorz
+package bloxorz.runner
 
-import bloxorz.UserInputUtil.getMove
+import bloxorz.common.UserInputUtil.getMove
+import bloxorz.mapeditor.MapEditor
+import bloxorz.common.{Board, BoardMaker}
 
 import scala.annotation.tailrec
 

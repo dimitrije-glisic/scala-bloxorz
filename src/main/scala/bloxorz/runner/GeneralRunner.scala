@@ -1,5 +1,4 @@
-package bloxorz
-
+package bloxorz.runner
 
 import scala.annotation.tailrec
 

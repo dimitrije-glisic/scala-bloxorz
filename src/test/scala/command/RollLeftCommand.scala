@@ -1,8 +1,8 @@
 package command
 
-import bloxorz.Bloxorz
-import bloxorz.Constants.{BLOXORZ_FLAT, BLOXORZ_UP}
-import bloxorz.command.RollLeftCommand
+import bloxorz.common.Constants.{BLOXORZ_FLAT, BLOXORZ_UP}
+import bloxorz.gamecontrol.Bloxorz
+import bloxorz.gamecontrol.command.RollLeftCommand
 import org.scalatest.funspec.AnyFunSpec
 
 class RollLeftCommand extends AnyFunSpec {

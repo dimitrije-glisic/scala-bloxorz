@@ -1,7 +1,8 @@
 package mapeditor
 
-import bloxorz.Constants.{DASH, REGULAR_VALUE}
-import bloxorz.{Board, BoardMaker, Cursor, MapEditor}
+import bloxorz.common.Constants.{DASH, REGULAR_VALUE}
+import bloxorz.mapeditor.{Cursor, MapEditor}
+import bloxorz.common.{Board, BoardMaker}
 import org.scalatest.funspec.AnyFunSpec
 
 

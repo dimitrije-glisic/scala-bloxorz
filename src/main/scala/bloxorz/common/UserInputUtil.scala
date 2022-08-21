@@ -1,4 +1,4 @@
-package bloxorz
+package bloxorz.common
 
 object UserInputUtil {
   def getMove: Char = {

@@ -1,10 +1,11 @@
-package bloxorz
+package bloxorz.gamecontrol
 
-import bloxorz.Constants._
-import bloxorz.GameStatus.{GAME_STATUS_IN_PROGRESS, GAME_STATUS_IN_PROGRESS_MESSAGE, GAME_STATUS_LOSS, GAME_STATUS_LOSS_MESSAGE_DOT_FIELD, GAME_STATUS_LOSS_MESSAGE_OUT, GAME_STATUS_WIN, GAME_STATUS_WIN_MESSAGE}
-import bloxorz.command.{RollDownCommand, RollLeftCommand, RollRightCommand, RollUpCommand}
+import bloxorz.common.Constants._
+import bloxorz.GameStatus._
+import bloxorz.common.Board
+import bloxorz.gamecontrol.command.{RollDownCommand, RollLeftCommand, RollRightCommand, RollUpCommand}
 
-class Controller(val board: Board, var bloxorz: Bloxorz) {
+class GameController(val board: Board, var bloxorz: Bloxorz) {
 
   var gameStatus: GameStatus = new GameStatus(GAME_STATUS_IN_PROGRESS, GAME_STATUS_IN_PROGRESS_MESSAGE)
 

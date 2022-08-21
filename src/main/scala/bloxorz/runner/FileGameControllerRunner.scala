@@ -1,4 +1,4 @@
-package bloxorz
+package bloxorz.runner
 
 object FileGameControllerRunner {
 
