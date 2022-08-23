@@ -1,12 +1,11 @@
 package bloxorz.mapeditor
 
-import bloxorz.common.Constants.{DASH, REGULAR_VALUE}
+import bloxorz.common.Constants.{DASH, GENERATED_MAPS_LOCATION, REGULAR_VALUE}
 import bloxorz.common.{Board, Constants}
 
 import java.io.{File, FileWriter}
 
 class MapEditor(val board: Board) {
-  val MAPS_LOCATION = "src/main/resources/generated"
   var cursor: Cursor = new Cursor(0, 0)
 
   def runCommand(command: Char): Unit = {
@@ -85,7 +84,8 @@ class MapEditor(val board: Board) {
   }
 
   def writeToFile(board: Board, fileName: String): File = {
-    val file = new File(MAPS_LOCATION + fileName)
+    val file = new File(GENERATED_MAPS_LOCATION + fileName)
+    file.createNewFile()
     val fileWriter = new FileWriter(file)
     for (t <- board.matrix.zipWithIndex) {
       val (row: Array[Char], index: Int) = (t._1, t._2)

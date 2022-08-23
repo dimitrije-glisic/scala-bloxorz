@@ -29,4 +29,10 @@ class Board(var matrix: List[Array[Char]]) {
     matrix.take(1).last.length
   }
 
+  def print(): Unit = {
+    println()
+    matrix.zipWithIndex.foreach(t => println(t._1.mkString))
+    println()
+  }
+
 }

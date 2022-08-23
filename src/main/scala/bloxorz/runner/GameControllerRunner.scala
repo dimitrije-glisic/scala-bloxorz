@@ -3,7 +3,7 @@ package bloxorz.runner
 import bloxorz.common.Constants.BLOXORZ_UP
 import bloxorz.common.UserInputUtil.getMove
 import bloxorz.gamecontrol.{Bloxorz, GameController}
-import bloxorz.common.{Board, BoardMaker}
+import bloxorz.common.{Board, BoardMaker, MapPicker}
 import bloxorz.gamecontrol.GameStatus.{GAME_STATUS_LOSS, GAME_STATUS_WIN}
 
 import scala.annotation.tailrec
@@ -14,7 +14,7 @@ object GameControllerRunner {
 
   @tailrec
   def run(): Unit = {
-    val matrix = BoardMaker.createMapMatrix("src/main/resources/maps/map")
+    val matrix = BoardMaker.createMapMatrix(MapPicker.choseMapOfNAvailable(3))
     val controller: GameController = new GameController(new Board(matrix), new Bloxorz(BLOXORZ_UP, Board.getInitPosition(matrix), (-1, -1)))
     controller.printGame()
     playGame(controller)
@@ -27,7 +27,7 @@ object GameControllerRunner {
 
   @tailrec
   def playGame(controller: GameController): Unit = {
-
+    println("Game started.")
     val move: Char = getMove
     if (move == 'q') {
       println("Are you sure you want to end this game? (y/n): ")

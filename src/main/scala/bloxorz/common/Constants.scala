@@ -15,4 +15,8 @@ case object Constants {
   val COMMAND_DOWN = 'd'
   val COMMAND_RIGHT = 'r'
   val COMMAND_LEFT = 'l'
+
+  val GENERATED_MAPS_LOCATION = "src/main/resources/generated-maps/"
+  val MAPS_LOCATION = "src/main/resources/maps"
+
 }
