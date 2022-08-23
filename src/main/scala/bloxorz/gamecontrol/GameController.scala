@@ -33,7 +33,8 @@ class GameController(val board: Board, var bloxorz: Bloxorz) {
   }
 
   def updateGameStatus(): GameStatus = {
-    val fieldOne = board.matrix.take(bloxorz.coord_one._1 + 1).last(bloxorz.coord_one._2)
+    val fieldOne = if(bloxorz.coord_one._1 + 1 > board.matrix_m || bloxorz.coord_one._2 >= board.matrix_n) DASH else
+      board.matrix.take(bloxorz.coord_one._1 + 1).last(bloxorz.coord_one._2)
     val fieldTwo = if (bloxorz.coord_two._1 != -1) board.matrix.take(bloxorz.coord_two._1 + 1).last(bloxorz.coord_two._2) else REGULAR_VALUE
 
     var status = GAME_STATUS_IN_PROGRESS

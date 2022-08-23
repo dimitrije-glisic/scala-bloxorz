@@ -14,9 +14,7 @@ object GameControllerRunner {
 
   @tailrec
   def run(): Unit = {
-    val matrix = BoardMaker.createMapMatrix(MapPicker.choseMapOfNAvailable(3))
-    val controller: GameController = new GameController(new Board(matrix), new Bloxorz(BLOXORZ_UP, Board.getInitPosition(matrix), (-1, -1)))
-    controller.printGame()
+    val controller = init()
     playGame(controller)
     print("Play again/Start menu? (p/s): ")
     if (scala.io.StdIn.readChar() == 'p') {
@@ -25,9 +23,16 @@ object GameControllerRunner {
     }
   }
 
+  def init(): GameController = {
+    val matrix = BoardMaker.createMapMatrix(MapPicker.choseMapOfNAvailable(3))
+    val controller: GameController = new GameController(new Board(matrix), new Bloxorz(BLOXORZ_UP, Board.getInitPosition(matrix), (-1, -1)))
+    println("Game started.")
+    controller.printGame()
+    controller
+  }
+
   @tailrec
   def playGame(controller: GameController): Unit = {
-    println("Game started.")
     val move: Char = getMove
     if (move == 'q') {
       println("Are you sure you want to end this game? (y/n): ")

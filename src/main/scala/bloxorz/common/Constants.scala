@@ -17,6 +17,6 @@ case object Constants {
   val COMMAND_LEFT = 'l'
 
   val GENERATED_MAPS_LOCATION = "src/main/resources/generated-maps/"
-  val MAPS_LOCATION = "src/main/resources/maps"
+  val MAPS_LOCATION = "src/main/resources/maps/"
 
 }
