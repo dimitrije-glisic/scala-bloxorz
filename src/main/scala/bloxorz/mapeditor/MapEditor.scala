@@ -1,6 +1,6 @@
 package bloxorz.mapeditor
 
-import bloxorz.common.Constants.{DASH, GENERATED_MAPS_LOCATION, REGULAR_VALUE}
+import bloxorz.common.Constants.{DASH, DOT, GENERATED_MAPS_LOCATION, REGULAR_VALUE}
 import bloxorz.common.{Board, Constants}
 
 import java.io.{File, FileWriter}
@@ -100,7 +100,7 @@ class MapEditor(val board: Board) {
   }
 
   def canBeReplacedWithRegular(cursor: Cursor): Boolean = {
-    Board.getFieldValue(board.matrix, cursor) == Constants.DASH && isOnTheEdge(cursor)
+    List(DASH, DOT).contains(Board.getFieldValue(board.matrix, cursor)) && isOnTheEdge(cursor)
   }
 
   def isOnTheEdge(cursor: Cursor): Boolean = {
