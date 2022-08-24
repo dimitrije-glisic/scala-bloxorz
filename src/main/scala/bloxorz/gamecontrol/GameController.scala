@@ -59,9 +59,7 @@ class GameController(val board: Board, var bloxorz: Bloxorz) {
   }
 
   def printGame(): Unit = {
-    println("\n")
     board.matrix.zipWithIndex.foreach(t => printWithBloxorz(t))
-    println("\n")
   }
 
   def printWithBloxorz(t: (Array[Char], Int)): Unit = {
