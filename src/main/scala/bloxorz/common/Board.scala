@@ -8,9 +8,9 @@ object Board{
     new Board(matrix)
   }
 
-  def getInitPosition(matrix: List[Array[Char]]): (Int, Int) = {
+  def getFirstPosition(matrix: List[Array[Char]], c: Char): (Int, Int) = {
     var result = (-1, -1)
-    for ((row, i) <- matrix.view.zipWithIndex if row.contains(START)) result = (i, row.indexOf(START))
+    for ((row, i) <- matrix.view.zipWithIndex if row.contains(c)) result = (i, row.indexOf(c))
     result
   }
 

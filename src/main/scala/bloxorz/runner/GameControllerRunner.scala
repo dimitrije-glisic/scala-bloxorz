@@ -1,6 +1,6 @@
 package bloxorz.runner
 
-import bloxorz.common.Constants.BLOXORZ_UP
+import bloxorz.common.Constants.{BLOXORZ_UP, START}
 import bloxorz.common.UserInputUtil.getMove
 import bloxorz.gamecontrol.{Bloxorz, GameController}
 import bloxorz.common.{Board, BoardMaker, MapPicker}
@@ -25,7 +25,7 @@ object GameControllerRunner {
 
   def init(): GameController = {
     val matrix = BoardMaker.createMapMatrix(MapPicker.choseMapOfNAvailable(3))
-    val controller: GameController = new GameController(new Board(matrix), new Bloxorz(BLOXORZ_UP, Board.getInitPosition(matrix), (-1, -1)))
+    val controller: GameController = new GameController(new Board(matrix), new Bloxorz(BLOXORZ_UP, Board.getFirstPosition(matrix, START ), (-1, -1)))
     println("Game started.")
     controller.printGame()
     controller

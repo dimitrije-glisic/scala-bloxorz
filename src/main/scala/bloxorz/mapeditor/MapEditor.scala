@@ -1,6 +1,6 @@
 package bloxorz.mapeditor
 
-import bloxorz.common.Constants.{DASH, DOT, GENERATED_MAPS_LOCATION, REGULAR_VALUE}
+import bloxorz.common.Constants.{DASH, DOT, GENERATED_MAPS_LOCATION, REGULAR_VALUE, START, TERMINATION}
 import bloxorz.common.{Board, Constants}
 
 import java.io.{File, FileWriter}
@@ -36,6 +36,14 @@ class MapEditor(val board: Board) {
 
     if(command == '.') {
       addSpecialField(cursor)
+    }
+
+    if (command == 'S') {
+      switch(cursor, START)
+    }
+
+    if (command == 'T') {
+      switch(cursor, TERMINATION)
     }
 
     if (command == 's') {
@@ -97,6 +105,12 @@ class MapEditor(val board: Board) {
         println(s"$DOT not Added")
       }
     }
+  }
+
+  def switch(cursor: Cursor, c: Char): Unit = {
+    val (initRow, initCol) = Board.getFirstPosition(board.matrix, c)
+    this.board.matrix.take(cursor.row + 1).last(cursor.col) = c
+    this.board.matrix.take(initRow + 1).last(initCol) = 'o'
   }
 
   def writeToFile(board: Board, fileName: String): File = {
