@@ -34,6 +34,10 @@ class MapEditor(val board: Board) {
       addRegularField(cursor)
     }
 
+    if(command == '.') {
+      addSpecialField(cursor)
+    }
+
     if (command == 's') {
       print("Do you want to finish editing and save the new map? (y/n): ")
       if (scala.io.StdIn.readChar() == 'y') {
@@ -73,12 +77,24 @@ class MapEditor(val board: Board) {
 
   def addRegularField(cursor: Cursor): Unit = {
     if (canBeReplacedWithRegular(cursor)) {
-      println(s"\nYou are about to add $REGULAR_VALUE. Continue? (y/n): ")
+      println(s"\nYou are about to replace current field with a '$REGULAR_VALUE'. Continue? (y/n): ")
       if (scala.io.StdIn.readChar() == 'y') {
         this.board.matrix.take(cursor.row + 1).last(cursor.col) = REGULAR_VALUE
         println(s"$REGULAR_VALUE Added")
       } else {
         println(s"$REGULAR_VALUE not Added")
+      }
+    }
+  }
+
+  def addSpecialField(cursor: Cursor): Unit = {
+    if (canBeReplacedWithSpecial(cursor)) {
+      println(s"\nYou are about to replace current field with a '$DOT'. Continue? (y/n): ")
+      if (scala.io.StdIn.readChar() == 'y') {
+        this.board.matrix.take(cursor.row + 1).last(cursor.col) = DOT
+        println(s"$DOT Added")
+      } else {
+        println(s"$DOT not Added")
       }
     }
   }
@@ -101,6 +117,10 @@ class MapEditor(val board: Board) {
 
   def canBeReplacedWithRegular(cursor: Cursor): Boolean = {
     List(DASH, DOT).contains(Board.getFieldValue(board.matrix, cursor)) && isOnTheEdge(cursor)
+  }
+
+  def canBeReplacedWithSpecial(cursor: Cursor): Boolean = {
+    Board.getFieldValue(board.matrix, cursor) == Constants.REGULAR_VALUE
   }
 
   def isOnTheEdge(cursor: Cursor): Boolean = {
