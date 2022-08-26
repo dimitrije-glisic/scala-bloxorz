@@ -45,6 +45,10 @@ class MapEditor(var editingState: EditingState) {
       editingState = SwitchCurrentWith(TERMINATION).operation(editingState)
     }
 
+    if(command == 'i') {
+      editingState = Invert.operation(editingState)
+    }
+
     if (command == 's') {
       editingState = SaveBoard.operation(editingState)
     }
