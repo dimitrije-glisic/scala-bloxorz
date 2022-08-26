@@ -49,6 +49,10 @@ class MapEditor(var editingState: EditingState) {
       editingState = Invert.operation(editingState)
     }
 
+    if(command == 'R') {
+      editingState = RemoveAllSpecial.operation(editingState)
+    }
+
     if (command == 's') {
       editingState = SaveBoard.operation(editingState)
     }
