@@ -1,7 +1,7 @@
 package bloxorz.runner
 
 import bloxorz.common.UserInputUtil.getMove
-import bloxorz.mapeditor.MapEditor
+import bloxorz.mapeditor.{Cursor, EditingState, MapEditor}
 import bloxorz.common.{Board, BoardMaker, MapPicker}
 
 import scala.annotation.tailrec
@@ -16,7 +16,7 @@ object MapEditorRunner {
   def init(): MapEditor = {
     println("Available maps for editing:")
     val board = new Board(BoardMaker.createMapMatrix(MapPicker.choseMapOfNAvailable(3)))
-    val mapEditor = new MapEditor(board)
+    val mapEditor = new MapEditor(new EditingState(board, new Cursor(0, 0)))
     println("Editing started")
     mapEditor.printGame()
     mapEditor

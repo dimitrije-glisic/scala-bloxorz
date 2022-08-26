@@ -35,4 +35,8 @@ class Board(var matrix: List[Array[Char]]) {
     println()
   }
 
+  override def clone(): Board = {
+    new Board(this.matrix.map(array => array.clone()))
+  }
+
 }

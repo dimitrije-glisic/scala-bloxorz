@@ -1,168 +1,65 @@
 package bloxorz.mapeditor
 
-import bloxorz.common.Constants.{DASH, DOT, GENERATED_MAPS_LOCATION, REGULAR_VALUE, START, TERMINATION}
-import bloxorz.common.{Board, Constants}
+import bloxorz.common.Constants.{START, TERMINATION}
+import bloxorz.mapeditor.operation._
 
-import java.io.{File, FileWriter}
 
-class MapEditor(val board: Board) {
-  var cursor: Cursor = new Cursor(0, 0)
+class MapEditor(var editingState: EditingState) {
+
 
   def runCommand(command: Char): Unit = {
 
     if (command == 'l') {
-      cursor = moveLeft(cursor)
+      editingState = MoveLeft.operation(editingState)
     }
 
     if (command == 'r') {
-      cursor = moveRight(cursor)
+      editingState = MoveRight.operation(editingState)
     }
 
     if (command == 'u') {
-      cursor = moveUp(cursor)
+      editingState = MoveUp.operation(editingState)
     }
 
     if (command == 'd') {
-      cursor = moveDown(cursor)
+      editingState = MoveDown.operation(editingState)
     }
 
     if (command == '-') {
-      removeRegularField(cursor)
+      editingState = RemoveRegular.operation(editingState)
     }
 
     if (command == '+') {
-      addRegularField(cursor)
+      editingState = AddRegular.operation(editingState)
     }
 
-    if(command == '.') {
-      addSpecialField(cursor)
+    if (command == '.') {
+      editingState = AddSpecial.operation(editingState)
     }
 
     if (command == 'S') {
-      switch(cursor, START)
+      editingState = SwitchCurrentWith(START).operation(editingState)
     }
 
     if (command == 'T') {
-      switch(cursor, TERMINATION)
+      editingState = SwitchCurrentWith(TERMINATION).operation(editingState)
     }
 
     if (command == 's') {
-      print("Do you want to finish editing and save the new map? (y/n): ")
-      if (scala.io.StdIn.readChar() == 'y') {
-        print("Enter the name for the new Map: ")
-        writeToFile(this.board, scala.io.StdIn.readLine())
-      }
+      editingState = SaveBoard.operation(editingState)
     }
-  }
 
-  def moveLeft(cursor: Cursor): Cursor = {
-    new Cursor(cursor.row, cursor.col - 1)
-  }
-
-  def moveRight(cursor: Cursor): Cursor = {
-    new Cursor(cursor.row, cursor.col + 1)
-  }
-
-  def moveUp(cursor: Cursor): Cursor = {
-    new Cursor(cursor.row - 1, cursor.col)
-  }
-
-  def moveDown(cursor: Cursor): Cursor = {
-    new Cursor(cursor.row + 1, cursor.col)
-  }
-
-  def removeRegularField(cursor: Cursor): Unit = {
-    if (canBeReplacedWithDash(cursor)) {
-      print(s"\nYou are about to remove $REGULAR_VALUE. Continue? (y/n): ")
-      if (scala.io.StdIn.readChar() == 'y') {
-        this.board.matrix.take(cursor.row + 1).last(cursor.col) = '-'
-        println(s"$REGULAR_VALUE Removed")
-      } else {
-        println(s"$REGULAR_VALUE Preserved")
-      }
-    }
-  }
-
-  def addRegularField(cursor: Cursor): Unit = {
-    if (canBeReplacedWithRegular(cursor)) {
-      println(s"\nYou are about to replace current field with a '$REGULAR_VALUE'. Continue? (y/n): ")
-      if (scala.io.StdIn.readChar() == 'y') {
-        this.board.matrix.take(cursor.row + 1).last(cursor.col) = REGULAR_VALUE
-        println(s"$REGULAR_VALUE Added")
-      } else {
-        println(s"$REGULAR_VALUE not Added")
-      }
-    }
-  }
-
-  def addSpecialField(cursor: Cursor): Unit = {
-    if (canBeReplacedWithSpecial(cursor)) {
-      println(s"\nYou are about to replace current field with a '$DOT'. Continue? (y/n): ")
-      if (scala.io.StdIn.readChar() == 'y') {
-        this.board.matrix.take(cursor.row + 1).last(cursor.col) = DOT
-        println(s"$DOT Added")
-      } else {
-        println(s"$DOT not Added")
-      }
-    }
-  }
-
-  def switch(cursor: Cursor, c: Char): Unit = {
-    val (initRow, initCol) = Board.getFirstPosition(board.matrix, c)
-    this.board.matrix.take(cursor.row + 1).last(cursor.col) = c
-    this.board.matrix.take(initRow + 1).last(initCol) = 'o'
-  }
-
-  def writeToFile(board: Board, fileName: String): File = {
-    val file = new File(GENERATED_MAPS_LOCATION + fileName)
-    file.createNewFile()
-    val fileWriter = new FileWriter(file)
-    for (t <- board.matrix.zipWithIndex) {
-      val (row: Array[Char], index: Int) = (t._1, t._2)
-      fileWriter.write(if (index < board.matrix_m - 1) row.appended('\n') else row)
-    }
-    fileWriter.close()
-    file
-  }
-
-  def canBeReplacedWithDash(cursor: Cursor): Boolean = {
-    Board.getFieldValue(board.matrix, cursor) == Constants.REGULAR_VALUE && isOnTheEdge(cursor)
-  }
-
-  def canBeReplacedWithRegular(cursor: Cursor): Boolean = {
-    List(DASH, DOT).contains(Board.getFieldValue(board.matrix, cursor)) && isOnTheEdge(cursor)
-  }
-
-  def canBeReplacedWithSpecial(cursor: Cursor): Boolean = {
-    Board.getFieldValue(board.matrix, cursor) == Constants.REGULAR_VALUE
-  }
-
-  def isOnTheEdge(cursor: Cursor): Boolean = {
-    val (i, j) = (cursor.row, cursor.col)
-    val left = if (j - 1 > 0) Board.getFieldValue(board.matrix, new Cursor(i, j - 1)) else DASH
-    val right = if (j < board.matrix_n - 1) Board.getFieldValue(board.matrix, new Cursor(i, j + 1)) else DASH
-    val above = if (i - 1 > 0) Board.getFieldValue(board.matrix, new Cursor(i - 1, j)) else DASH
-    val below = if (i + 1 < board.matrix_m) Board.getFieldValue(board.matrix, new Cursor(i + 1, j)) else DASH
-    thereIsOneDash(left, right, above, below) && thereIsOneNonDash(left, right, above, below)
-  }
-
-  def thereIsOneDash(left: Char, right: Char, above: Char, below: Char): Boolean = {
-    left == DASH || right == DASH || above == DASH || below == DASH
-  }
-
-  def thereIsOneNonDash(left: Char, right: Char, above: Char, below: Char): Boolean = {
-    left != DASH || right != DASH || above != DASH || below != DASH
   }
 
   def printGame(): Unit = {
-    board.matrix.zipWithIndex.foreach(t => printRow(t))
+    editingState.board.matrix.zipWithIndex.foreach(t => printRow(t))
   }
 
   def printRow(t: (Array[Char], Int)): Unit = {
     val (line, row) = t
     val _row: Array[Char] = Array.copyOf(line, line.length)
-    if (row == cursor.row) {
-      _row.update(cursor.col, '*')
+    if (row == editingState.cursor.row) {
+      _row.update(editingState.cursor.col, '*')
     }
     println(_row.mkString)
   }
